@@ -7,6 +7,22 @@ const createList = {
   }),
 };
 
+const queryList = {
+  query: Joi.object().keys({
+    title: Joi.string(),
+    content: Joi.string(),
+  }),
+}
+
+const findById = {
+  query: Joi.object().keys({
+    title: Joi.string(),
+    content: Joi.string(),
+  }), 
+}
+
 module.exports = {
-  createList
+  createList,
+  queryList,
+  findById
 }
