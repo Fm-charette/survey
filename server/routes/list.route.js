@@ -9,6 +9,8 @@ const listController = new ListController();
 router.post("/", validate(listValidation.createList), listController.create);
 router.get('/', validate(listValidation.queryList), listController.query);
 router.get('/:id', validate(listValidation.findById), listController.findById);
+router.patch('/:id', validate(listValidation.updateByid), listController.updateByid);
+router.delete('/:id', listController.delete);
 
 module.exports = router;
 

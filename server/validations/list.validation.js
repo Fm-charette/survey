@@ -21,8 +21,15 @@ const findById = {
   }), 
 }
 
+const updateByid = {
+  query: Joi.object().keys({
+    title: Joi.string(),
+    content: Joi.string(),
+  }), 
+}
 module.exports = {
   createList,
   queryList,
-  findById
+  findById,
+  updateByid
 }

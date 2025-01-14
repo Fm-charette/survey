@@ -36,6 +36,28 @@ class ListController {
       res.status(500).send({ message: 'Internal server error', error });
     }
   }
+
+  updateByid = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const body = req.body
+      const result = await this.service.updateByid(id, body);
+      res.status(200).send(result);
+    } catch (err) {
+      console.error(error);
+      res.status(500).send({ message: 'Internal server error', error });
+    }
+  }
+
+  delete = async (req, res) => {
+    try {
+      const result = await this.service.deleteOne(req.params.id);
+      res.status(200).send(result);
+    } catch (err) {
+      console.error(error);
+      res.status(404).send({ message: 'Id list not found', error });
+    }
+  }
 }
 
 module.exports = ListController;
