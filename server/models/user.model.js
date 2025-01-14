@@ -18,6 +18,17 @@ const userSchema = new mongoose.Schema({
       message: 'Please type a valid email format adress',
     },
   },
+  password: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (value) {
+        const regex = /^(?=.*[A-Z])(?=.*[#=_@&]).{8,}$/;
+        return regex.test(value);
+      },
+      message: 'Password must contain 8 character with Majuscule and one special char #=_@&',
+    }
+  },
   phone: {
     type: Number,
     required: true,
