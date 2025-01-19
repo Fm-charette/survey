@@ -4,9 +4,6 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  firstName: {
-    type: String,
-  },
   email: {
     type: String,
     required: true,
@@ -29,9 +26,13 @@ const userSchema = new mongoose.Schema({
       message: 'Password must contain 8 character with Majuscule and one special char #=_@&',
     }
   },
-  phone: {
-    type: Number,
-    required: true,
+  picture: {
+    data: Buffer,
+    contentType: String
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   }
 }, { timestamps: true });
 

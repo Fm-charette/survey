@@ -23,7 +23,8 @@
     "joi": "^17.13.3",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "winston-mongodb": "^6.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
