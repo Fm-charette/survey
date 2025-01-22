@@ -1,7 +1,8 @@
 const { User } = require('../models');
 
 const createUser = async (userBody) => {
-  if (await User.isEmailTaken(userBody.email)) {
+  const isEmailTaken = await User.findOne({ email: userBody.email });
+  if (isEmailTaken) {
     throw new ApiError('BAD REQUEST', 'Email already taken');
   }
   return User.create(userBody);
