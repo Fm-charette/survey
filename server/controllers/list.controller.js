@@ -19,7 +19,6 @@ class ListController {
       const result = await this.service.query();
       res.status(200).send(result);
     } catch (error) {
-      console.error(error);
       res.status(500).send({ message: 'Internal server error', error });
     }
   };
@@ -32,7 +31,6 @@ class ListController {
       }
       res.status(200).send(result);
     } catch (error) {
-      console.error(error);
       res.status(500).send({ message: 'Internal server error', error });
     }
   }
@@ -44,7 +42,6 @@ class ListController {
       const result = await this.service.updateByid(id, body);
       res.status(200).send(result);
     } catch (err) {
-      console.error(error);
       res.status(500).send({ message: 'Internal server error', error });
     }
   }
@@ -54,7 +51,6 @@ class ListController {
       const result = await this.service.deleteOne(req.params.id);
       res.status(200).send(result);
     } catch (err) {
-      console.error(error);
       res.status(404).send({ message: 'Id list not found', error });
     }
   }
