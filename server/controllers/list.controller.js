@@ -1,31 +1,26 @@
 const listService = require('../services/list.service');
 
-class ListController {
-  constructor() {
-    this.service = listService;
-  }
-
-  create = async (req, res) => {
+  const create = async (req, res) => {
     try {
-      const result = await this.service.createList(req.body);
+      const result = await listService.createList(req.body);
       res.send(result);
     } catch (error) {
       res.status(500).send({ error: error.message });
     }
   };
 
-  query = async (req, res) => {
+  const query = async (req, res) => {
     try {
-      const result = await this.service.query();
+      const result = await listService.query();
       res.status(200).send(result);
     } catch (error) {
       res.status(500).send({ message: 'Internal server error', error });
     }
   };
 
-  findById = async (req, res) => {
+  const findById = async (req, res) => {
     try {
-      const result = await this.service.findById(req.params.id);
+      const result = await listService.findById(req.params.id);
       if (!result) {
         return res.status(404).send({ message: 'List not found' });
       }
@@ -35,25 +30,31 @@ class ListController {
     }
   }
 
-  updateByid = async (req, res) => {
+  const updateById = async (req, res) => {
     try {
       const id = req.params.id;
       const body = req.body
-      const result = await this.service.updateByid(id, body);
+      console.log(id, body)
+      const result = await listService.updateById(id, body);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send({ message: 'Internal server error', error });
     }
   }
 
-  delete = async (req, res) => {
+  const deleteList = async (req, res) => {
     try {
-      const result = await this.service.deleteOne(req.params.id);
+      const result = await listService.deleteOne(req.params.id);
       res.status(200).send(result);
     } catch (err) {
       res.status(404).send({ message: 'Id list not found', error });
     }
   }
-}
 
-module.exports = ListController;
+module.exports = {
+  create,
+  query,
+  findById,
+  updateById,
+  deleteList
+};
