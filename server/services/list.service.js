@@ -12,7 +12,8 @@ const findById = async (id) => {
   return List.findById(id);
 };
 
-const updateByid = async (id, body) => {
+const updateById = async (id, body) => {
+  console.log(id, body);
   return List.findByIdAndUpdate(id, body);
 }
 
@@ -29,6 +30,6 @@ module.exports = {
   createList,
   query,
   findById,
-  updateByid,
+  updateById,
   deleteOne
 };
