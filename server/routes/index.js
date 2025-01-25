@@ -1,6 +1,7 @@
 const express = require('express');
 const listRoute = require('./list.route');
 const authRoute = require('./auth/login.route');
+const userRoute = require('./user.route');
 
 const router = express.Router();
 
@@ -12,6 +13,10 @@ const productionRoute = [
   {
     path: '/auth',
     route: authRoute,
+  },
+  {
+    path: '/user',
+    route: userRoute,
   }
 ];
 
