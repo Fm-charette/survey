@@ -3,10 +3,10 @@ const Joi = require('joi');
 const createUser = {
   body: Joi.object().keys({
     name: Joi.string(),
-    email: Joi.string().required(),
-    password: Joi.string().required(),
-    picture: Joi.any(),
-    isAdmin: Joi.boolean,
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).pattern(/^(?=.*[A-Z])(?=.*[#=_@&]).{8,}$/).required(),
+    picture: Joi.string().uri().optional(),
+    isAdmin: Joi.boolean().optional(),
   }), 
 };
 
