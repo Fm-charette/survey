@@ -32,10 +32,7 @@ const listService = require('../services/list.service');
 
   const updateById = async (req, res) => {
     try {
-      const id = req.params.id;
-      const body = req.body
-      console.log(id, body)
-      const result = await listService.updateById(id, body);
+      const result = await listService.updateById(req.params.id, req.body);
       res.status(200).send(result);
     } catch (err) {
       res.status(500).send({ message: 'Internal server error', error });
