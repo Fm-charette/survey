@@ -2,32 +2,28 @@ const express = require('express');
 const connectDB = require('./config/database');
 const cors = require('cors');
 const routes = require('./routes');
-const handleExpressValidationError  = require('./middleware/express.validation');
+const { errorHandler } = require('./middleware/error.handler');
 require('dotenv').config();
 
 const app = express();
 
 connectDB();
-// Parse json request body
+
+// Middleware pour analyser les corps JSON
 app.use(express.json());
-app.use(handleExpressValidationError);
 app.use(cors());
 app.options('*', cors());
 
+// Définir vos routes ici
 app.use('/v1', routes);
 
-app.use((err, req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-    return res.status(400).send({ error: 'Invalid JSON format' });
-  }
-  next();
-});
+app.use(errorHandler);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    message: 'Internal Server Error',
-    error: err.message, 
+app.use((req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `Route not found: ${req.originalUrl}`,
   });
 });
+
 module.exports = app;
