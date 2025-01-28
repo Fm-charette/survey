@@ -19,7 +19,7 @@ app.use('/v1', routes);
 
 app.use(errorHandler);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({
     status: 'fail',
     message: `Route not found: ${req.originalUrl}`,

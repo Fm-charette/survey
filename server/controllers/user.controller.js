@@ -1,11 +1,11 @@
 const { userService } = require('../services/');
 
-const createUser = async(req, res) => {
+const createUser = async(req, res, next) => {
   try {
     const user = await userService.createUser(req.body);
     res.send(user);
   } catch (err) {
-    res.status(500).send({error: err});
+    next(err);
   };
 };
 

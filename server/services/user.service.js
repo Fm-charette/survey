@@ -1,11 +1,16 @@
 const { User } = require('../models');
-const apiError = require('../utils/api.error')
+const apiError = require('../utils/api.error');
 
 const createUser = async (userBody) => {
-  const isEmailTaken = await User.findOne({ email: userBody.email });
- if (isEmailTaken)
-    throw apiError(400, 'Email already taken');
-  return User.create(userBody);
+  try {
+    const isEmailTaken = await User.findOne({ email: userBody.email });
+    if (isEmailTaken) {
+      throw apiError(400, 'Email already taken');
+    }
+    return User.create(userBody);
+  } catch (error) {
+    throw apiError(400, error);
+  }
 };
 
 const queryUser = async() => {
