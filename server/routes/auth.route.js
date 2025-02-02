@@ -46,5 +46,9 @@ router.post('/refresh', async (req, res, next) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  res.clearCookie('refreshToken');
+  res.json({ success: true, message: 'Déconnecté' });
+});
 
 module.exports = router;
