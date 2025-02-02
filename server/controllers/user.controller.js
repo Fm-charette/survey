@@ -14,7 +14,7 @@ const query = async (req, res) => {
     const result = await userService.queryUser();
     res.status(200).send(result);
   } catch (err) {
-    res.status(500).send({ message: 'Internal server error', err });
+    next(err);
   }
 };
 
@@ -25,7 +25,7 @@ const findById = async (req, res) => {
       return res.status(404).send({ message: 'User not found' });
     res.status(200).send(result);
   } catch (err) {
-    res.status(500).send({ message: 'Internal server error', err });
+    next(err);
   }
 }
 
@@ -34,7 +34,7 @@ const updateByid = async (req, res) => {
     const result = await userService.updateById(req.params.id, req.body);
     res.status(200).send(result);
   } catch (err) {
-    res.status(500).send({ message: 'Internal server error', err });
+    next(err);
   }
 }
 
@@ -43,7 +43,7 @@ const deleteOne = async(req, res) => {
     const result = await userService.deleteOne(req.params.id);
     res.status(200).send(result);
   } catch (err) {
-    res.status(404).send({ message: 'Id list not found', err });
+    next(err);
   }
 }
 
