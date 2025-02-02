@@ -5,7 +5,15 @@ const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, email: user.email }, 
     process.env.JWT_SECRET, 
-    { expiresIn: '1h' }
+    { expiresIn: '30m' }
+  );
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign(
+    { id: user._id },
+    process.env.JWT_REFRESH,
+    { expiresIn: '7d' }
   );
 };
 
@@ -16,7 +24,10 @@ const authenticateUser = async (email, password) => {
   const isMatch = await user.isPasswordMatch(password);
   if (!isMatch) 
     throw new Error(400, 'Mot de passe incorrect');
-  return generateToken(user);
+  const accessToken = generateToken(user);
+  const refreshToken = generateRefreshToken(user);
+
+  return { accessToken, refreshToken };
 };
 
-module.exports = { generateToken, authenticateUser };
+module.exports = { generateToken, authenticateUser, generateRefreshToken };
