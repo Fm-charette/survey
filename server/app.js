@@ -9,12 +9,10 @@ const app = express();
 
 connectDB();
 
-// Middleware pour analyser les corps JSON
 app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
-// Définir vos routes ici
 app.use('/v1', routes);
 
 app.use(errorHandler);
