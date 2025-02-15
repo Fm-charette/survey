@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const  verifyAccessToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    return res.status(401).json({ message: 'Token manquant. Veuillez vous connecter.' });
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Token manquant ou mal formaté. Veuillez vous connecter.' });
   }
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.replace('Bearer ', '');
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: 'Token invalide ou expiré.' });
