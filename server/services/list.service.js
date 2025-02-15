@@ -9,25 +9,32 @@ const createList = async (body) => {
   }
 }
 
-const query = async () => {
+const query = async (id) => {
   try {
-    return List.find();
+    return List.find({
+      $or: [
+        { createdBy: id },
+        { sharedWith: id }
+      ]
+    });
   } catch {
     throw apiError(404, 'Cannot find list');
   }
 };
 
-const findById = async (id) => {
+const findById = async (listId, userId) => {
   try {
-    const list = await List.findById(id);
+    const list = await List.findById(listId);
     if (!list) {
       throw apiError(404, 'List not found');
     }
-    return List.findById(id);
+    if (list.createdBy.toString() !== userId && !list.sharedWith.includes(userId)) {
+      throw apiError(403, 'Access denied');
+    }
+    return list; 
   } catch (error) {
     throw apiError(400, error)
   }
-
 };
 
 const updateById = async (id, body) => {

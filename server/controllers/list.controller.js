@@ -12,7 +12,7 @@ const { listService } = require('../services')
 
   const query = async (req, res) => {
     try {
-      const result = await listService.query();
+      const result = await listService.query(req.user._id);
       res.status(200).send(result);
     } catch (error) {
       res.status(500).send({ message: 'Internal server error', error });
@@ -21,9 +21,11 @@ const { listService } = require('../services')
 
   const findById = async (req, res) => {
     try {
-      const result = await listService.findById(req.params.id);
+      const userId = req.user._id;
+      const listId = req.params.id;
+      const result = await listService.findById(listId, userId);
       if (!result) {
-        return res.status(404).send({ message: 'List not found' });
+        return res.status(404).send({ message: 'List not found or access denied' });
       }
       res.status(200).send(result);
     } catch (error) {
