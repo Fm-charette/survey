@@ -1,10 +1,10 @@
 const Joi = require('joi');
 
 const createList = {
-  body: Joi.object().keys({
-    title: Joi.string(),
-    content: Joi.string().required(),
-  }),
+  body: Joi.object({
+    title: Joi.string().required(),
+    element: Joi.array().items(Joi.string().optional()),
+  })
 };
 
 const queryList = {
