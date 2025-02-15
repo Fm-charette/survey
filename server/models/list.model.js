@@ -6,6 +6,8 @@ const listSchema = new mongoose.Schema({
     required: true,
   },
   element: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ListItem' }],
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  sharedWith: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 }, { timestamps: true});
 
 const List = mongoose.model('List', listSchema);
