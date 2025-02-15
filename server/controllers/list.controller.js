@@ -1,11 +1,12 @@
-const listService = require('../services/list.service');
+const { listService } = require('../services')
 
-  const create = async (req, res) => {
+  const create = async (req, res, next) => {
     try {
+      req.body.createdBy = req.user._id;
       const result = await listService.createList(req.body);
       res.send(result);
     } catch (error) {
-      res.status(500).send({ error: error.message });
+      next (error)
     }
   };
 
