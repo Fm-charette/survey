@@ -3,15 +3,15 @@ const { User } = require('../models');
 
 const generateToken = (user) => {
   return jwt.sign(
-    { id: user._id, email: user.email }, 
+    { _id: user._id, email: user.email }, 
     process.env.JWT_SECRET, 
-    { expiresIn: '30m' }
+    { expiresIn: '1d' }
   );
 };
 
 const generateRefreshToken = (user) => {
   return jwt.sign(
-    { id: user._id },
+    { _id: user._id },
     process.env.JWT_REFRESH,
     { expiresIn: '7d' }
   );
